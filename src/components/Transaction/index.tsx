@@ -1,22 +1,26 @@
 import { MonthLabel, TransactionAmount, TransactionDate, TransactionDivider, TransactionInfo, TransactionType, TransactionWrapper } from "./styles";
-import PropTypes from 'prop-types';
+import type { Transaction as TransactionModel } from "../../types/transaction";
 
 const currencyFormatter = new Intl.NumberFormat('pt-BR', {
     style: 'currency',
     currency: 'BRL'
 });
 
-const formatDate = (date) => {
-    const options = { day: '2-digit', month: '2-digit', year: 'numeric' };
+const formatDate = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = { day: '2-digit', month: '2-digit', year: 'numeric' };
     return date.toLocaleDateString('pt-BR', options);
 };
 
-const getMonthName = (date) => {
-    const options = { month: 'long' };
+const getMonthName = (date: Date) => {
+    const options: Intl.DateTimeFormatOptions = { month: 'long' };
     return date.toLocaleDateString('pt-BR', options);
 };
 
-export const Transaction = ({ transaction }) => {
+type TransactionProps = {
+    transaction: TransactionModel;
+};
+
+export const Transaction = ({ transaction }: TransactionProps) => {
     const { value, type, date } = transaction;
     const month = getMonthName(date);
     const formattedDate = formatDate(date);
@@ -33,12 +37,4 @@ export const Transaction = ({ transaction }) => {
             <TransactionDivider />
         </TransactionWrapper>
     );
-};
-
-Transaction.propTypes = {
-    transaction: PropTypes.shape({
-        value: PropTypes.number.isRequired,
-        type: PropTypes.string.isRequired,
-        date: PropTypes.instanceOf(Date).isRequired
-    }).isRequired
 };

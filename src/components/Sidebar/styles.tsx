@@ -15,7 +15,11 @@ export const List = styled.ul`
     gap: 16px;
 `
 
-export const ListItem = styled.li`
+type ListItemProps = {
+    $active?: boolean;
+};
+
+export const ListItem = styled.li<ListItemProps>`
     text-align: center;
     border-bottom: 1px solid;
     border-color: ${props => props.$active ? '#47A138' : '#000'};

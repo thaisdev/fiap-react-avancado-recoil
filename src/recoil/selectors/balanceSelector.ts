@@ -1,7 +1,7 @@
 import { selector } from "recoil";
 import { transactionsState } from "../atoms/transactionsAtom";
 
-export const balanceSelector = selector({
+export const balanceSelector = selector<number>({
   key: "balanceSelector",
   get: ({ get }) => {
     const transactions = get(transactionsState);

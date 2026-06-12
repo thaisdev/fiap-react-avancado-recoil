@@ -4,9 +4,9 @@ import { transactionsState } from "../recoil/atoms/transactionsAtom";
 export const useAddTransaction = () => {
   const setTransactions = useSetRecoilState(transactionsState);
 
-  const addTransaction = (type, value) => {
+  const addTransaction = (type: string, value: string) => {
     setTransactions((prevState) => {
-      let parsedValue = Math.abs(value);
+      let parsedValue = Math.abs(Number(value));
 
       if (type !== "Depósito") {
         parsedValue *= -1;

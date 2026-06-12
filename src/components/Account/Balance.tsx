@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import PropTypes from 'prop-types';
 import { IconEye } from "../Icons";
 
 const formatter = new Intl.NumberFormat('pt-BR', {
@@ -31,7 +30,11 @@ const StyledBalance = styled.div`
     }
 `
 
-export const Balance = ({ valor }) => {
+type BalanceProps = {
+    valor: number;
+};
+
+export const Balance = ({ valor }: BalanceProps) => {
     return <StyledBalance>
         <h3>
             Saldo
@@ -43,7 +46,3 @@ export const Balance = ({ valor }) => {
         </strong>
     </StyledBalance>
 }
-
-Balance.propTypes = {
-    valor: PropTypes.number.isRequired
-};

@@ -1,50 +1,42 @@
 import { useState } from "react";
+import type { ChangeEvent, FormEvent } from "react";
 import { Button } from "../Button";
 import { Fieldset } from "../Fieldset";
 import { Form, FormActions } from "../Form";
 import { FormLabel } from "../FormLabel";
 import { TextField } from "../TextField";
 import { Figure, Heading, Image } from "./styles";
-import PropTypes from 'prop-types';
 
-export const FormRegister = ({ onRegister }) => {
-    const [user, setUser] = useState({ name: '', email: '', password: '' });
+type FormLoginProps = {
+    onLogin: () => void;
+};
 
-    const handleChange = (e) => {
+export const FormLogin = ({ onLogin }: FormLoginProps) => {
+    const [credentials, setCredentials] = useState({ email: '', password: '' });
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setUser((prevUser) => ({
-            ...prevUser,
+        setCredentials((prevCredentials) => ({
+            ...prevCredentials,
             [name]: value,
         }));
     };
 
-    const registerUser = (evt) => {
+    const loginUser = (evt: FormEvent<HTMLFormElement>) => {
         evt.preventDefault();
-        console.log(user);
-        onRegister()
+        console.log(credentials);
+        onLogin()
     };
 
     return (
         <section>
             <Figure>
-                <Image src="/imgs/register.png" />
+                <Image src="/imgs/login.png" />
             </Figure>
             <Heading>
-                Preencha os campos abaixo para criar sua conta corrente!
+                Preencha os campos abaixo para efetuar login!
             </Heading>
-            <Form onSubmit={registerUser}>
-                <Fieldset>
-                    <FormLabel>
-                        Nome
-                    </FormLabel>
-                    <TextField
-                        name="name"
-                        placeholder="Digite seu nome completo"
-                        value={user.name}
-                        onChange={handleChange}
-                        required
-                    />
-                </Fieldset>
+            <Form onSubmit={loginUser}>
                 <Fieldset>
                     <FormLabel>
                         Email
@@ -53,7 +45,7 @@ export const FormRegister = ({ onRegister }) => {
                         name="email"
                         type="email"
                         placeholder="Digite seu email"
-                        value={user.email}
+                        value={credentials.email}
                         onChange={handleChange}
                         required
                     />
@@ -66,21 +58,17 @@ export const FormRegister = ({ onRegister }) => {
                         name="password"
                         type="password"
                         placeholder="Digite sua senha"
-                        value={user.password}
+                        value={credentials.password}
                         onChange={handleChange}
                         required
                     />
                 </Fieldset>
                 <FormActions>
                     <Button type="submit">
-                        Criar conta
+                        Efetuar login
                     </Button>
                 </FormActions>
             </Form>
         </section>
     );
-};
-
-FormRegister.propTypes = {
-    onRegister: PropTypes.func.isRequired,
 };

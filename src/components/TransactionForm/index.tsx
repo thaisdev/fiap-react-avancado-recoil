@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { FormEvent } from "react";
 import { Card, Form, Heading, Input, Label, Select } from "./styles";
 import { Button } from "../Button";
 import { useRecoilValue } from "recoil";
@@ -13,7 +14,7 @@ export const TransactionForm = () => {
 
   const transactionTypes = useRecoilValue(transactionTypesState);
 
-  const createTransacion = (evt) => {
+  const createTransacion = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     addTransaction(transactionType, transactionValue);
     setTransactionType("");
